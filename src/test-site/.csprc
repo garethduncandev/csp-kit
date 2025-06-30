@@ -1,0 +1,54 @@
+{
+  "options": {
+    "sha": "sha256",
+    "directory": "./",
+    "addMetaTag": true,
+    "addIntegrityAttributes": true,
+    "logLevel": "info"
+  },
+  "directives": {
+    "default-src": [
+      "'none'"
+    ],
+    "script-src": [
+      "'self'"
+    ],
+    "style-src": [
+      "'self'"
+    ],
+    "img-src": [
+      "'self'"
+    ],
+    "font-src": [
+      "'self'"
+    ],
+    "connect-src": [
+      "'self'",
+      "ws://127.0.0.1:3001"
+    ],
+    "media-src": [
+      "'none'"
+    ],
+    "object-src": [
+      "'none'"
+    ],
+    "child-src": [
+      "'none'"
+    ],
+    "frame-src": [
+      "'none'"
+    ],
+    "worker-src": [
+      "'none'"
+    ],
+    "manifest-src": [
+      "'none'"
+    ],
+    "form-action": [
+      "'none'"
+    ],
+    "base-uri": [
+      "'none'"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build Project",
+      "program": "${workspaceFolder}\\src\\cli\\cli.ts",
+      "preLaunchTask": "npm: build",
+      "sourceMaps": true,
+      "smartStep": true,
+      "args": [
+        "--directory",
+        "./test-site",
+        "--add-meta-tag",
+        "--add-integrity-attributes",
+        "--config",
+        "./test-site/.csprc"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ]
+    }
+  ]
+}

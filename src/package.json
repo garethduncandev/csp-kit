@@ -1,0 +1,52 @@
+{
+  "name": "csp-kit",
+  "version": "0.0.2",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garethduncandev/csp-kit.git"
+  },
+  "bin": {
+    "csp-kit": "dist/cli/cli.js"
+  },
+  "scripts": {
+    "start": "node dist/cli/cli.js --directory ./test-site --config ./test-site/.csprc --sha sha256 --add-meta-tag --add-integrity-attributes",
+    "help": "node dist/cli/cli.js -h",
+    "createEmptyConfig": "node dist/cli/cli.js --create-empty-config --directory ./test-site",
+    "precreateEmptyConfig": "npm run build",
+    "prestart": "npm run build",
+    "build": "tsc",
+    "prebuild": "tsc --build --clean",
+    "deploy": "npm publish --access public --userconfig ~/.npmrc-garethduncandev",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "keywords": [
+    "csp",
+    "hash",
+    "generator",
+    "javascript"
+  ],
+  "license": "MIT",
+  "description": "Generate Content Security Policies using hashes for a js application",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "commander": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "clean-package": "^2.2.0",
+    "typescript": "^5.8.3"
+  },
+  "main": "./dist/main.js",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js"
+    }
+  },
+  "files": [
+    "dist"
+  ]
+}

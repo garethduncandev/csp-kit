@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'self' https://garethduncandev.github.io 'sha256-OiMWtCCNPLZECupMMHFILuuFjO4l1PzOXe1hvJKPESg='; img-src 'self'; font-src 'self'; connect-src 'self' ws://127.0.0.1:3001; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; form-action 'none'; base-uri 'none';">
+    
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example 2 test page</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/styles/styles.css" integrity="sha256-2ZBx992Jxon1Yyn570jcefnAFO6vp0J30Z/2/fF5y2w=">
+    <link rel="stylesheet" href="https://garethduncandev.github.io/example-web-assets/example.css" crossorigin="anonymous" integrity="sha256-YYtkvUEV53mGbgxBYIeY5mhXcmcKD7ybf5GHn8kqYTM=">
+    <style type="text/css">
+      .example-inline-style-orange {
+        color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Back to home</a></li>
+        <li><a href="page-1.html">Go to page 1</a></li>
+      </ul>
+    </nav>
+    <h1>CSP test site: Page 2</h1>
+    <p>This page loads the following resources:</p>
+    <ul>
+      <li>Local CSS: <code>../assets/styles/styles.css</code></li>
+      <li>
+        Remote CSS:
+        <code>https://garethduncandev.github.io/example-web-assets/example.css</code>
+      </li>
+      <li>Inline style element (in the &lt;head&gt;)</li>
+      <li>Local image: <code>../assets/images/csp.svg</code></li>
+    </ul>
+    <p class="example-inline-style-orange">
+      Orange paragraph styled by inline style element
+    </p>
+    <p class="example-remote-style-red">
+      Red paragraph styled by remote css file
+    </p>
+    <p class="example-local-style-green">
+      Green paragraph styled by local css file
+    </p>
+    <figure>
+      <img src="../assets/images/csp.svg" alt="example svg displaying word csp">
+      <figcaption>Example SVG displaying the word CSP</figcaption>
+    </figure>
+  
+
+</body></html>
