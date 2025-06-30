@@ -1,17 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Config } from './config.js';
-import { logInfo } from '../utils/logger.js';
+import { logInfo, logWarn } from '../utils/logger.js';
 
 export function getConfig(configPath: string): Config {
   // Check if the config file exists
   let config: Config = getDefaultConfig();
   logInfo('config path', configPath);
   if (!fs.existsSync(configPath)) {
-    logInfo('.csprc file not found at', configPath);
-    throw new Error(
-      'Config file not found. Please create a .csprc file in the current directory or specify a valid path.'
-    );
+    logWarn('Falling back to default: .csprc file not found at', configPath);
+    // Instead of throwing, just return the default config
+    return config;
   }
 
   logInfo('.csprc file found');
