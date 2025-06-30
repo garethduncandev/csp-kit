@@ -17,7 +17,7 @@
     "prestart": "npm run build",
     "build": "tsc",
     "prebuild": "tsc --build --clean",
-    "deploy": "npm publish --access public --userconfig ~/.npmrc-garethduncandev",
+    "deploy": "npm publish --access public",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
