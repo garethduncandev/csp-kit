@@ -1,27 +1,31 @@
-import * as cheerio from 'cheerio';
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 import { Config } from './config/config.js';
-import { combineCsps, generateCsp, stringifyCsp } from './csp/csp-generator.js';
+import { cspCreate } from './csp/csp-create.js';
+import { cspMerge } from './csp/csp-merge.js';
+import { cspStringify } from './csp/csp-stringify.js';
 import { Csp } from './csp/csp.js';
-import { HashResult } from './hashers/hash-result.js';
-import { getFilePaths } from './utils/file-utils.js';
-import { logDebug, logInfo, setLogLevel } from './utils/logger.js';
-import { addContentSecurityPolicyMetaTag } from './utils/meta-tag-utils.js';
+import { addContentSecurityPolicyMetaTag } from './html-modifiers/add-content-security-policy-meta-tag.js';
+import { addIntegrityAttributes } from './html-modifiers/add-integrity-attributes.js';
+import { getFilePaths } from './paths/get-file-paths.js';
+import { logCiResult, logDebug, logInfo, setLogLevel } from './logger.js';
+import { load } from 'cheerio';
 
 export async function main(config: Config): Promise<void> {
-  setLogLevel(config.options.logLevel);
+  setLogLevel(config.options.logLevel, config.options.ci);
+
   const allFilePaths = getFilePaths(path.resolve(config.options.directory));
   const htmlFilePaths = allFilePaths.filter((filePath) =>
     ['.html', '.htm'].includes(path.extname(filePath))
   );
 
   const policies: Csp[] = [];
+
   for (const htmlFilePath of htmlFilePaths) {
     const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
-    const parsedHtmlContent = cheerio.load(htmlContent);
+    const parsedHtmlContent = load(htmlContent);
 
-    const result = await generateCsp(
+    const result = await cspCreate(
       config.directives,
       htmlFilePath,
       config.options.sha
@@ -29,11 +33,10 @@ export async function main(config: Config): Promise<void> {
     const csp = result.csp;
 
     policies.push(csp);
-    logDebug(JSON.stringify(result, null, 2));
 
-    // add csp meta tag (and report-to meta tag if needed)
+    // add csp meta tag
     if (config.options.addMetaTag) {
-      const parsedCsp = stringifyCsp(csp);
+      const parsedCsp = cspStringify(csp);
       logDebug('Parsed CSP:', parsedCsp);
       addContentSecurityPolicyMetaTag(
         parsedCsp,
@@ -47,44 +50,14 @@ export async function main(config: Config): Promise<void> {
     }
   }
 
+  logInfo('Policies:', JSON.stringify(policies, null, 2));
+
   // combine all policies into a single CSP
-  const combined = combineCsps(policies);
-  const combinedCspString = stringifyCsp(combined);
-  logInfo(combinedCspString);
-}
+  const combined = cspMerge(policies);
+  const combinedCspString = cspStringify(combined);
 
-function addIntegrityAttributes(
-  htmlFilePath: string,
-  parsedHtmlContent: cheerio.CheerioAPI,
-  hashes: HashResult[]
-): void {
-  for (const hash of hashes) {
-    if (
-      hash.src &&
-      (hash.resourceType === 'script' || hash.resourceType === 'style')
-    ) {
-      addIntegrityAttribute(
-        htmlFilePath,
-        parsedHtmlContent,
-        hash.src,
-        hash.resourceType,
-        hash.hash
-      );
-    }
-  }
-}
+  logInfo('Combined CSP:', combinedCspString);
 
-function addIntegrityAttribute(
-  htmlFilePath: string,
-  parsedHtmlContent: cheerio.CheerioAPI,
-  resourceUrl: string,
-  resourceType: 'script' | 'style',
-  hash: string
-) {
-  const element =
-    resourceType === 'script'
-      ? parsedHtmlContent(`script[src="${resourceUrl}"]`)
-      : parsedHtmlContent(`link[href="${resourceUrl}"]`);
-  element.attr('integrity', hash);
-  fs.writeFileSync(htmlFilePath, parsedHtmlContent.html(), 'utf-8');
+  // Used in CI result
+  logCiResult(combinedCspString);
 }

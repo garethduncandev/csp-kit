@@ -1,21 +1,14 @@
 import { CheerioAPI } from 'cheerio';
-import * as crypto from 'crypto';
 import { hashEmbeddedResources } from './embedded-resource-hasher.js';
 import { HashResult } from './hash-result.js';
-import { hashLocalResources } from './local-resource-hasher.js';
-import { hashRemoteResources } from './remote-resource-hasher.js';
-import { SHAType } from './sha-type.js';
+import { hashLocalResources } from './hash-local-resources.js';
+import { hashRemoteResources } from './hash-remote-resources.js';
+import { SHA } from './sha.js';
 
-export function hashContent(content: string, shaType: SHAType): string {
-  const hash = crypto.createHash(shaType);
-  hash.update(content);
-  return `${shaType.toString()}-${hash.digest('base64')}`;
-}
-
-export async function getHtmlFileHashes(
+export async function hashHtmlResources(
   parsedHtmlContent: CheerioAPI,
   htmlFilePath: string,
-  sha: SHAType,
+  sha: SHA,
   resourceType: 'script' | 'style'
 ): Promise<HashResult[]> {
   // Hash local external resources
@@ -45,8 +38,4 @@ export async function getHtmlFileHashes(
     ...remoteExternalHashes,
     ...embeddedResourceHashes,
   ];
-}
-
-export function isRemoteUrl(url: string): boolean {
-  return /^https?:\/\//i.test(url) || url.startsWith('//');
 }

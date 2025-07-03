@@ -1,14 +1,16 @@
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 import { HashResult } from './hash-result.js';
-import { SHAType } from './sha-type.js';
+import { SHA } from './sha.js';
 import type { CheerioAPI } from 'cheerio';
-import { hashContent, isRemoteUrl } from './hash-utils.js';
+import {} from './hash-html-resources.js';
+import { isRemoteUrl } from '../paths/is-remote-url.js';
+import { hashString } from './hash-string.js';
 
 export function hashLocalResources(
   resourceType: 'script' | 'style',
   parsedHtmlContent: CheerioAPI,
-  sha: SHAType,
+  sha: SHA,
   htmlFilePath: string
 ): HashResult[] {
   const hashes: HashResult[] = [];
@@ -27,7 +29,7 @@ export function hashLocalResources(
     const htmlDir = path.dirname(htmlFilePath);
     const absoluteFilePath = path.join(htmlDir, url);
     const fileContent = fs.readFileSync(absoluteFilePath, 'utf-8');
-    const resourceHash = hashContent(fileContent, sha);
+    const resourceHash = hashString(fileContent, sha);
     hashes.push({
       src: url,
       hash: resourceHash,

@@ -1,10 +1,10 @@
-import * as fs from 'fs';
-import * as cheerio from 'cheerio';
+import { CheerioAPI } from 'cheerio';
+import fs from 'fs';
 
 export function addContentSecurityPolicyMetaTag(
   csp: string,
   htmlFilePath: string,
-  parsedHtmlContent: cheerio.CheerioAPI
+  parsedHtmlContent: CheerioAPI
 ): void {
   const metaTag = `<meta http-equiv="Content-Security-Policy" content="${csp}">`;
 

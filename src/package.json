@@ -34,7 +34,7 @@
     "commander": "^13.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/node": "^22.16.0",
     "clean-package": "^2.2.0",
     "typescript": "^5.8.3"
   },
