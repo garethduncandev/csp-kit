@@ -1,12 +1,14 @@
+import { isRemoteUrl } from '../paths/is-remote-url.js';
 import { HashResult } from './hash-result.js';
-import { hashContent, isRemoteUrl } from './hash-utils.js';
-import { SHAType } from './sha-type.js';
+import { hashString } from './hash-string.js';
+import {} from './hash-html-resources.js';
+import { SHA } from './sha.js';
 import type { CheerioAPI } from 'cheerio';
 
 export async function hashRemoteResources(
   resourceType: 'script' | 'style',
   parsedHtmlContent: CheerioAPI,
-  sha: SHAType
+  sha: SHA
 ): Promise<HashResult[]> {
   const hashes: HashResult[] = [];
 
@@ -32,7 +34,7 @@ export async function hashRemoteResources(
       continue;
     }
     const resourceContent = await response.text();
-    const resourceHash = hashContent(resourceContent, sha);
+    const resourceHash = hashString(resourceContent, sha);
     const parsedUrl = new URL(fullUrl);
     const domain = `${parsedUrl.protocol}//${parsedUrl.hostname}` || null;
     hashes.push({

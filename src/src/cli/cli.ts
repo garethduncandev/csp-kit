@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-import * as commander from 'commander';
-import { exportDefaultConfigFile, getConfig } from '../config/config-utils.js';
-import { main } from '../main.js';
-import { CliParameters } from './cli-paramaters.js';
+import { Command } from 'commander';
+import { cliHandleAction } from './cli-handle-action.js';
 
-const program = new commander.Command();
+const program = new Command();
 
 program
   .option('--create-empty-config', 'Create empty config file')
@@ -12,6 +10,7 @@ program
   .option('--directory <string>', 'Directory')
   .option('--config <string>', 'CLI config', '.csprc')
   .option('--add-meta-tag', 'Insert csp meta tag into head of html file')
+  .option('--ci', 'Continuous Integration mode')
   .option(
     '--add-integrity-attributes',
     'Update html script with integrity attributes'
@@ -21,29 +20,6 @@ program
     'Log level: silent, error, warn, info, debug',
     'info'
   )
-  .action(async (cliParameters: CliParameters) => {
-    console.log(cliParameters);
-    // load config from path or fallback to default config
-    const config = getConfig(cliParameters.config);
-
-    // update config with cli parameters if provided
-    config.options.directory =
-      cliParameters.directory ?? config.options.directory;
-    config.options.sha = cliParameters.sha ?? config.options.sha;
-    config.options.addMetaTag =
-      cliParameters.addMetaTag ?? config.options.addMetaTag;
-    config.options.addIntegrityAttributes =
-      cliParameters.addIntegrityAttributes ??
-      config.options.addIntegrityAttributes;
-    config.options.logLevel = cliParameters.logLevel ?? config.options.logLevel;
-
-    const createEmptyConfig = cliParameters.createEmptyConfig ?? false;
-    if (createEmptyConfig) {
-      exportDefaultConfigFile(config.options.directory);
-      return;
-    }
-
-    await main(config);
-  });
+  .action(cliHandleAction);
 
 program.parse(process.argv);

@@ -1,13 +1,14 @@
-import { SHAType } from './../hashers/sha-type.js';
-import type { LogLevel } from '../utils/logger.js';
+import { SHA } from '../hashers/sha.js';
+import type { LogLevel } from '../logger.js';
 
 export interface Config {
   options: {
     directory: string;
-    sha: SHAType;
+    sha: SHA;
     addMetaTag: boolean;
     addIntegrityAttributes: boolean;
     logLevel: LogLevel;
+    ci: boolean;
   };
   directives: {
     [key: string]: string[];
