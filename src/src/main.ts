@@ -12,8 +12,6 @@ import { logCiResult, logDebug, logInfo, setLogLevel } from './logger.js';
 import { load } from 'cheerio';
 
 export async function main(config: Config): Promise<void> {
-  setLogLevel(config.options.logLevel, config.options.ci);
-
   const allFilePaths = getFilePaths(path.resolve(config.options.directory));
   const htmlFilePaths = allFilePaths.filter((filePath) =>
     ['.html', '.htm'].includes(path.extname(filePath))

@@ -10,7 +10,7 @@ program
   .option('--directory <string>', 'Directory')
   .option('--config <string>', 'CLI config', '.csprc')
   .option('--add-meta-tag', 'Insert csp meta tag into head of html file')
-  .option('--ci', 'Continuous Integration mode', false)
+  .option('--ci', 'Continuous Integration mode')
   .option(
     '--add-integrity-attributes',
     'Update html script with integrity attributes'

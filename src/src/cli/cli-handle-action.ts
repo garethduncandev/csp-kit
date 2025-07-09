@@ -2,7 +2,13 @@ import { configExists } from '../config/config-exists.js';
 import { defaultConfig } from '../config/default-config.js';
 import { exportDefaultConfig } from '../config/export-default-config.js';
 import { getConfig } from '../config/get-config.js';
-import { logDebug, logError, logInfo, logWarn } from '../logger.js';
+import {
+  logDebug,
+  logError,
+  logInfo,
+  logWarn,
+  setLogLevel,
+} from '../logger.js';
 import { main } from '../main.js';
 import { CliParameters } from './cli-paramaters.js';
 
@@ -18,13 +24,19 @@ export async function cliHandleAction(
   const configPath = cliParameters.config ?? '.csprc';
 
   const configFileExists = configExists(configPath);
+
+  const config = configFileExists ? getConfig(configPath) : defaultConfig();
+  config.options.logLevel = cliParameters.logLevel ?? config.options.logLevel;
+
+  config.options.ci = cliParameters.ci ?? config.options.ci;
+
+  setLogLevel(config.options.logLevel, config.options.ci);
+
   if (configFileExists) {
     logDebug('Config file exists:', configPath);
   } else {
     logDebug('Config file does not exist, using default config:', configPath);
   }
-
-  const config = configFileExists ? getConfig(configPath) : defaultConfig();
 
   const createEmptyConfig = cliParameters.createEmptyConfig ?? false;
   if (createEmptyConfig) {
@@ -45,8 +57,6 @@ export async function cliHandleAction(
   config.options.addIntegrityAttributes =
     cliParameters.addIntegrityAttributes ??
     config.options.addIntegrityAttributes;
-
-  config.options.logLevel = cliParameters.logLevel ?? config.options.logLevel;
 
   await main(config);
 }
