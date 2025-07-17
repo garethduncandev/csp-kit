@@ -8,7 +8,7 @@ program
   .option('--create-empty-config', 'Create empty config file')
   .option('--sha <string>', 'SHA type - sha256, sha384 or sha512')
   .option('--directory <string>', 'Directory')
-  .option('--config <string>', 'CLI config', '.csprc')
+  .option('--config <string>', 'CLI config')
   .option('--add-meta-tag', 'Insert csp meta tag into head of html file')
   .option('--ci', 'Continuous Integration mode')
   .option(

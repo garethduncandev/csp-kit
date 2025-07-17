@@ -2,7 +2,7 @@ import { SHA } from '../hashers/sha.js';
 import { LogLevel } from '../logger.js';
 
 export interface CliParameters {
-  config: string;
+  config?: string;
   createEmptyConfig?: boolean;
   sha?: SHA;
   directory?: string;

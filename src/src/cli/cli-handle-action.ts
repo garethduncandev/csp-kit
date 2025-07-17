@@ -21,6 +21,8 @@ export async function cliHandleAction(
     validateCliParameterConfigPath(cliParameters.config);
   }
 
+  // if no config param provided, use default config path
+  // this default config path doesnt have to exist
   const configPath = cliParameters.config ?? '.csprc';
 
   const configFileExists = configExists(configPath);
@@ -64,7 +66,7 @@ export async function cliHandleAction(
 function validateCliParameterConfigPath(configPath: string): void {
   const configFileExists = configExists(configPath);
   if (!configFileExists) {
-    logError('Falling back to default: .csprc file not found at', configPath);
+    logError('Configuration file not found at', configPath);
     throw new Error('Configuration file not found at: ' + configPath);
   }
 }
