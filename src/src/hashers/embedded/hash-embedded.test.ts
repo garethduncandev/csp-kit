@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { load } from 'cheerio';
-import { hashEmbeddedResources } from './embedded-resource-hasher.js';
+import { hashEmbeddedResources } from './hash-embedded.js';
 
 describe('hashEmbeddedResources', () => {
   it('should hash embedded <script> resources', () => {

@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { load } from 'cheerio';
-import * as local from './hash-local-resources.js';
-import * as remote from './hash-remote-resources.js';
-import * as embedded from './embedded-resource-hasher.js';
-import { hashHtmlResources } from './hash-html-resources.js';
+import * as local from './local/hash-local.js';
+import * as remote from './remote/hash-remote.js';
+import * as embedded from './embedded/hash-embedded.js';
+import { hashHtmlResources } from './hash-resources.js';
 
 describe('hashHtmlResources', () => {
   it('should combine results from all hashers', async () => {

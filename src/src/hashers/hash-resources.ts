@@ -1,8 +1,8 @@
 import { CheerioAPI } from 'cheerio';
-import { hashEmbeddedResources } from './embedded-resource-hasher.js';
+import { hashEmbeddedResources } from './embedded/hash-embedded.js';
 import { HashResult } from './hash-result.js';
-import { hashLocalResources } from './hash-local-resources.js';
-import { hashRemoteResources } from './hash-remote-resources.js';
+import { hashLocalResources } from './local/hash-local.js';
+import { hashRemoteResources } from './remote/hash-remote.js';
 import { SHA } from './sha.js';
 
 export async function hashHtmlResources(

@@ -1,9 +1,8 @@
-import { isRemoteUrl } from '../paths/is-remote-url.js';
-import { HashResult } from './hash-result.js';
-import { hashString } from './hash-string.js';
-import {} from './hash-html-resources.js';
-import { SHA } from './sha.js';
+import { HashResult } from '../hash-result.js';
+import { hashString } from '../string/hash-string.js';
+import { SHA } from '../sha.js';
 import type { CheerioAPI } from 'cheerio';
+import { extractRemoteResources } from './extract-remote.js';
 
 export async function hashRemoteResources(
   resourceType: 'script' | 'style',
@@ -12,20 +11,15 @@ export async function hashRemoteResources(
 ): Promise<HashResult[]> {
   const hashes: HashResult[] = [];
 
-  // Generalize selector and attribute
-  const selector =
-    resourceType === 'style' ? 'link[rel="stylesheet"]' : 'script[src]';
-  const attr = resourceType === 'style' ? 'href' : 'src';
+  const remoteResources = extractRemoteResources(
+    parsedHtmlContent,
+    resourceType
+  );
 
-  const urls: string[] = [];
-  parsedHtmlContent(selector).each((_: unknown, element: any) => {
-    const url = parsedHtmlContent(element).attr(attr);
-    if (url && isRemoteUrl(url)) {
-      urls.push(url.startsWith('//') ? `https:${url}` : url);
-    }
-  });
-
-  for (const fullUrl of urls) {
+  for (const resource of remoteResources) {
+    const fullUrl = resource.url.startsWith('//')
+      ? `https:${resource.url}`
+      : resource.url;
     const response = await fetch(fullUrl);
     if (!response.ok) {
       console.error(
@@ -41,7 +35,7 @@ export async function hashRemoteResources(
       src: fullUrl,
       hash: resourceHash,
       resourceLocation: 'remote',
-      resourceType,
+      resourceType: resource.resourceType,
       domain: domain,
     });
   }

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { load } from 'cheerio';
-import * as isRemote from '../paths/is-remote-url.js';
-import { hashRemoteResources } from './hash-remote-resources.js';
+import * as isRemote from '../../paths/is-remote-url.js';
+import { hashRemoteResources } from './hash-remote.js';
 
 global.fetch = vi.fn();
 

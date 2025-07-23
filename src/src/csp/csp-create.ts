@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { HashResult } from '../hashers/hash-result.js';
-import { hashHtmlResources } from '../hashers/hash-html-resources.js';
+import { hashHtmlResources } from '../hashers/hash-resources.js';
 import { SHA } from '../hashers/sha.js';
 import { Csp } from './csp.js';
 

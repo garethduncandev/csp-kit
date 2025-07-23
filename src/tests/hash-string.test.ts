@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { hashString } from '../src/hashers/hash-string.js';
+import { hashString } from '../src/hashers/string/hash-string.js';
 
 describe('hashString', () => {
   it('should return a base64-encoded hash with the correct prefix', () => {

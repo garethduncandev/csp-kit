@@ -10,8 +10,8 @@ vi.mock('fs', async () => {
   return await import('memfs');
 });
 
-import * as isRemote from '../paths/is-remote-url.js';
-import { hashLocalResources } from './hash-local-resources.js';
+import * as isRemote from '../../paths/is-remote-url.js';
+import { hashLocalResources } from './hash-local.js';
 
 describe('hashLocalResources', () => {
   beforeEach(() => {
