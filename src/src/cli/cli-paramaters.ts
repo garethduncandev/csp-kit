@@ -10,4 +10,5 @@ export interface CliParameters {
   addIntegrityAttributes?: boolean;
   logLevel?: LogLevel;
   ci?: boolean;
+  exportJsonPath?: string;
 }

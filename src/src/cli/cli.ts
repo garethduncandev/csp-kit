@@ -20,6 +20,10 @@ program
     'Log level: silent, error, warn, info, debug',
     'info'
   )
+  .option(
+    '--export-json-path <file>',
+    'Output policies and combined CSP to a JSON file'
+  )
   .action(cliHandleAction);
 
 program.parse(process.argv);

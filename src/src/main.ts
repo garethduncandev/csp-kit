@@ -1,15 +1,18 @@
+import { load } from 'cheerio';
 import fs from 'fs';
 import path from 'path';
 import { Config } from './config/config.js';
 import { cspCreate } from './csp/csp-create.js';
 import { cspMerge } from './csp/csp-merge.js';
 import { cspStringify } from './csp/csp-stringify.js';
-import { Csp } from './csp/csp.js';
+import {
+  ExportedPolicy,
+  exportPoliciesJson,
+} from './export/export-policies.js';
 import { addContentSecurityPolicyMetaTag } from './html-modifiers/add-content-security-policy-meta-tag.js';
 import { addIntegrityAttributes } from './html-modifiers/add-integrity-attributes.js';
+import { logCiResult, logDebug, logInfo } from './logger.js';
 import { getFilePaths } from './paths/get-file-paths.js';
-import { logCiResult, logDebug, logInfo, setLogLevel } from './logger.js';
-import { load } from 'cheerio';
 
 export async function main(config: Config): Promise<void> {
   const allFilePaths = getFilePaths(path.resolve(config.options.directory));
@@ -17,7 +20,7 @@ export async function main(config: Config): Promise<void> {
     ['.html', '.htm'].includes(path.extname(filePath))
   );
 
-  const policies: Csp[] = [];
+  const exportedPolicies: ExportedPolicy[] = [];
 
   for (const htmlFilePath of htmlFilePaths) {
     const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
@@ -29,15 +32,19 @@ export async function main(config: Config): Promise<void> {
       config.options.sha
     );
     const csp = result.csp;
+    const cspString = cspStringify(csp);
 
-    policies.push(csp);
+    exportedPolicies.push({
+      htmlFilePath,
+      csp,
+      cspString,
+    });
 
     // add csp meta tag
     if (config.options.addMetaTag) {
-      const parsedCsp = cspStringify(csp);
-      logDebug('Parsed CSP:', parsedCsp);
+      logDebug('Parsed CSP:', cspString);
       addContentSecurityPolicyMetaTag(
-        parsedCsp,
+        cspString,
         htmlFilePath,
         parsedHtmlContent
       );
@@ -48,14 +55,23 @@ export async function main(config: Config): Promise<void> {
     }
   }
 
-  logInfo('Policies:', JSON.stringify(policies, null, 2));
+  logInfo('Policies:', JSON.stringify(exportedPolicies, null, 2));
 
   // combine all policies into a single CSP
-  const combined = cspMerge(policies);
-  const combinedCspString = cspStringify(combined);
+  const combinedCsp = cspMerge(exportedPolicies.map((p) => p.csp));
+  const combinedCspString = cspStringify(combinedCsp);
 
   logInfo('Combined CSP:', combinedCspString);
 
   // Used in CI result
   logCiResult(combinedCspString);
+
+  // Output to JSON file if specified
+  if (config.options.exportJsonPath) {
+    exportPoliciesJson(config.options.exportJsonPath, exportedPolicies, {
+      csp: combinedCsp,
+      cspString: combinedCspString,
+    });
+    logInfo(`Output written to ${config.options.exportJsonPath}`);
+  }
 }

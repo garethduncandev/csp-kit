@@ -1,6 +1,6 @@
 {
   "name": "csp-kit",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
     "csp-kit": "dist/cli/cli.js"
   },
   "scripts": {
-    "start": "node dist/cli/cli.js --directory ./test-site --config ./test-site/.csprc --sha sha256 --add-meta-tag --add-integrity-attributes",
+    "start": "node dist/cli/cli.js --directory ./test-site --config ./test-site/.csprc --sha sha256 --add-meta-tag --add-integrity-attributes --export-json-path ./.cache/csp.json",
     "start:ci": "node dist/cli/cli.js --directory ./test-site --config ./test-site/.csprc --sha sha256 --add-meta-tag --add-integrity-attributes --ci",
     "start:no-config": "node dist/cli/cli.js --directory ./test-site --sha sha256 --add-meta-tag --add-integrity-attributes --ci",
     "help": "node dist/cli/cli.js -h",

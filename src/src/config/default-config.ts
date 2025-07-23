@@ -9,6 +9,7 @@ export function defaultConfig(): Config {
       addIntegrityAttributes: false,
       logLevel: 'info',
       ci: false,
+      exportJsonPath: undefined,
     },
     directives: {
       'default-src': ["'none'"],

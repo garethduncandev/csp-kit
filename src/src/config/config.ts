@@ -9,6 +9,7 @@ export interface Config {
     addIntegrityAttributes: boolean;
     logLevel: LogLevel;
     ci: boolean;
+    exportJsonPath?: string;
   };
   directives: {
     [key: string]: string[];

@@ -60,6 +60,9 @@ export async function cliHandleAction(
     cliParameters.addIntegrityAttributes ??
     config.options.addIntegrityAttributes;
 
+  config.options.exportJsonPath =
+    cliParameters.exportJsonPath ?? config.options.exportJsonPath;
+
   await main(config);
 }
 
