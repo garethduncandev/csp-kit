@@ -1,11 +1,10 @@
-import path from 'path';
-import fs from 'fs';
-import { HashResult } from './hash-result.js';
-import { SHA } from './sha.js';
 import type { CheerioAPI } from 'cheerio';
-import {} from './hash-html-resources.js';
+import fs from 'fs';
+import path from 'path';
 import { isRemoteUrl } from '../paths/is-remote-url.js';
+import { HashResult } from './hash-result.js';
 import { hashString } from './hash-string.js';
+import { SHA } from './sha.js';
 
 export function hashLocalResources(
   resourceType: 'script' | 'style',

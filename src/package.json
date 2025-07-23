@@ -23,7 +23,9 @@
     "prebuild": "tsc --build --clean",
     "deploy": "npm publish --access public",
     "prepack": "clean-package",
-    "postpack": "clean-package restore"
+    "postpack": "clean-package restore",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "keywords": [
     "csp",
@@ -39,8 +41,11 @@
   },
   "devDependencies": {
     "@types/node": "^22.16.0",
+    "@vitest/ui": "^3.2.4",
     "clean-package": "^2.2.0",
-    "typescript": "^5.8.3"
+    "memfs": "^4.17.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "main": "./dist/main.js",
   "module": "./dist/main.js",
