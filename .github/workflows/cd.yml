@@ -51,6 +51,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: npm run deploy
+      - run: npm publish
         name: Deploy to NPM
         working-directory: ./src
