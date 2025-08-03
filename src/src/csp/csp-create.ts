@@ -42,12 +42,14 @@ export async function cspCreate(
     );
     const self = scriptHashesArr.some((x) => x.resourceLocation === 'local');
 
-    csp['script-src'] = [
-      ...(csp['script-src'] || []),
-      ...(self ? [`'self'`] : []),
-      ...domains.map((h) => (h.domain ? h.domain : '')),
-      ...hashes.map((h) => `'${h.hash}'`),
-    ];
+    csp['script-src'] = Array.from(
+      new Set([
+        ...(csp['script-src'] || []),
+        ...(self ? [`'self'`] : []),
+        ...domains.map((h) => (h.domain ? h.domain : '')),
+        ...hashes.map((h) => `'${h.hash}'`),
+      ])
+    );
   }
 
   if (styleHashesArr.length > 0) {
@@ -62,12 +64,14 @@ export async function cspCreate(
 
     const self = styleHashesArr.some((x) => x.resourceLocation === 'local');
 
-    csp['style-src'] = [
-      ...(csp['style-src'] || []),
-      ...(self ? [`'self'`] : []),
-      ...domains.map((h) => (h.domain ? h.domain : '')),
-      ...hashes.map((h) => `'${h.hash}'`),
-    ];
+    csp['style-src'] = Array.from(
+      new Set([
+        ...(csp['style-src'] || []),
+        ...(self ? [`'self'`] : []),
+        ...domains.map((h) => (h.domain ? h.domain : '')),
+        ...hashes.map((h) => `'${h.hash}'`),
+      ])
+    );
   }
 
   return {

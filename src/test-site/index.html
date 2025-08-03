@@ -1,14 +1,21 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'self' https://garethduncandev.github.io 'sha256-YLStZD3LRCbyQz+SWh+LM9QT71cJdJox9GDPlGS0bhg='; style-src 'self' 'self' https://garethduncandev.github.io 'sha256-wJRySaU187V0euaf6vebc2XKVC8F6rbi2ZrMfDEf4hE='; img-src 'self'; font-src 'self'; connect-src 'self' ws://127.0.0.1:3001; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; form-action 'none'; base-uri 'none';">
-    
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test html page</title>
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-    <script src="assets/scripts/main.js" integrity="sha256-mNjrNmekMP2JTnQIfd42/KkViCT2qSJLKLcChV2ikHY="></script>
-    <script src="https://garethduncandev.github.io/example-web-assets/example.js" crossorigin="anonymous" integrity="sha256-+RQSflnMT+06LNQc1OdRZzErRWvGIWC27po77TeKVAw="></script>
-    <link rel="stylesheet" href="assets/styles/styles.css" integrity="sha256-2ZBx992Jxon1Yyn570jcefnAFO6vp0J30Z/2/fF5y2w=">
-    <link rel="stylesheet" href="https://garethduncandev.github.io/example-web-assets/example.css" crossorigin="anonymous" integrity="sha256-YYtkvUEV53mGbgxBYIeY5mhXcmcKD7ybf5GHn8kqYTM=">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <script src="assets/scripts/main.js"></script>
+    <script
+      src="https://garethduncandev.github.io/example-web-assets/example.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="assets/styles/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://garethduncandev.github.io/example-web-assets/example.css"
+      crossorigin="anonymous"
+    />
     <script>
       console.log('inline script loaded on index.html');
     </script>
@@ -31,13 +38,17 @@
       <li>Local JavaScript: <code>assets/scripts/main.js</code></li>
       <li>
         Remote JavaScript:
-        <code>https://garethduncandev.github.io/example-web-assets/example.js</code>
+        <code
+          >https://garethduncandev.github.io/example-web-assets/example.js</code
+        >
       </li>
       <li>Inline JavaScript (in the &lt;head&gt;)</li>
       <li>Local CSS: <code>assets/styles/styles.css</code></li>
       <li>
         Remote CSS:
-        <code>https://garethduncandev.github.io/example-web-assets/example.css</code>
+        <code
+          >https://garethduncandev.github.io/example-web-assets/example.css</code
+        >
       </li>
       <li>Inline style element (in the &lt;head&gt;)</li>
       <li>Local image: <code>assets/images/csp.svg</code></li>
@@ -52,9 +63,8 @@
       Green paragraph styled by local inline style element
     </p>
     <figure>
-      <img src="assets/images/csp.svg" alt="example svg displaying word csp">
+      <img src="assets/images/csp.svg" alt="example svg displaying word csp" />
       <figcaption>Example SVG displaying the word CSP</figcaption>
     </figure>
-  
-
-</body></html>
+  </body>
+</html>

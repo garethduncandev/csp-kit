@@ -1,12 +1,15 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'self' https://garethduncandev.github.io 'sha256-30TJbZ7sL3IHanERtHvQo9Cl1IT/lRpiRCGOdJ6ST1o='; style-src 'self' 'sha256-sbQB//m/D0KJE+Wfglw5v32z+bGQqi+j2s44QMrDKJs='; img-src 'self'; font-src 'self'; connect-src 'self' ws://127.0.0.1:3001; media-src 'none'; object-src 'none'; child-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; form-action 'none'; base-uri 'none';">
-    
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Example 1 test page</title>
-    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-    <script src="../assets/scripts/main.js" integrity="sha256-mNjrNmekMP2JTnQIfd42/KkViCT2qSJLKLcChV2ikHY="></script>
-    <script src="https://garethduncandev.github.io/example-web-assets/example.js" crossorigin="anonymous" integrity="sha256-+RQSflnMT+06LNQc1OdRZzErRWvGIWC27po77TeKVAw="></script>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <script src="../assets/scripts/main.js"></script>
+    <script
+      src="https://garethduncandev.github.io/example-web-assets/example.js"
+      crossorigin="anonymous"
+    ></script>
     <script>
       console.log('inline script loaded on page-1.html');
     </script>
@@ -29,7 +32,9 @@
       <li>Local JavaScript: <code>../assets/scripts/main.js</code></li>
       <li>
         Remote JavaScript:
-        <code>https://garethduncandev.github.io/example-web-assets/example.js</code>
+        <code
+          >https://garethduncandev.github.io/example-web-assets/example.js</code
+        >
       </li>
       <li>Inline style element (in the &lt;head&gt;)</li>
       <li>Local image: <code>../assets/images/csp.svg</code></li>
@@ -44,9 +49,11 @@
     </p>
 
     <figure>
-      <img src="../assets/images/csp.svg" alt="example svg displaying word csp">
+      <img
+        src="../assets/images/csp.svg"
+        alt="example svg displaying word csp"
+      />
       <figcaption>Example SVG displaying the word CSP</figcaption>
     </figure>
-  
-
-</body></html>
+  </body>
+</html>
